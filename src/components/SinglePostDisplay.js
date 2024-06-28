@@ -98,7 +98,6 @@ const SinglePostDisplay = ({ item }) => {
                             </>
                         )}
                     </div>
-
                     <EditPostModal
                         isEditing={isEditing}
                         setIsEditing={setIsEditing}
@@ -110,8 +109,8 @@ const SinglePostDisplay = ({ item }) => {
                         editDescription={editDescription}
                         setEditDescription={setEditDescription}
                         message={message}
+                        setMessage={setMessage}
                     />
-
                 </div>
             </div>
         </div>

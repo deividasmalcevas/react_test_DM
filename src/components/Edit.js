@@ -10,8 +10,21 @@ const EditPostModal = ({
        setEditImage,
        editDescription,
        setEditDescription,
-       message
+       message,
+       setMessage,
    }) => {
+    const isValidImageUrl = (url) => {
+        return (/\.(jpg|jpeg|png|gif)$/i).test(url);
+    };
+    const handleEditSubmit = async (event) => {
+        event.preventDefault();
+        if (!isValidImageUrl(editImage)) {
+            setMessage('Invalid image URL. Please enter a URL that ends with .jpg, .jpeg, .png, or .gif.');
+            return;
+        }
+        handleEdit(event);
+    };
+
     return (
         <div className={`modal ${isEditing ? 'show d-block' : ''}`} tabIndex="-1">
             <div className="modal-dialog">
@@ -23,7 +36,7 @@ const EditPostModal = ({
                         </button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={handleEdit}>
+                        <form onSubmit={handleEditSubmit}>
                             <div className="form-group">
                                 <label className="text-black" htmlFor="editTitle">Title:</label>
                                 <input

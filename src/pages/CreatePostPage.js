@@ -21,8 +21,18 @@ const CreatePostPage = () => {
 
     const username = localStorage.getItem(`user`)
 
+    const isValidImageUrl = (url) => {
+        return (/\.(jpg|jpeg|png|gif)$/i).test(url);
+    };
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!isValidImageUrl(image)) {
+            setFlashError(true);
+            setMessage('Invalid image URL. Please enter a URL that ends with .jpg, .jpeg, .png, or .gif.');
+            setTimeout(() => setFlashError(false), 3000);
+            return;
+        }
         let secretKey = localStorage.getItem('secretKey');
         let post = {
             secretKey: secretKey,
@@ -34,7 +44,7 @@ const CreatePostPage = () => {
         if (!response.success) {
             setFlashError(true);
             setMessage(response.message);
-            setTimeout(() => setFlashError(false), 1000);
+            setTimeout(() => setFlashError(false), 3000);
         } else {
             window.location.href = `/posts/${username}`;
         }
